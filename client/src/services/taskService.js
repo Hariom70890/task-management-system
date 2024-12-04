@@ -20,8 +20,9 @@ export const createTask = async ( taskData ) => {
   return response.data;
 };
 
-export const getTask = async () => {
+export const getTask = async (page = 1, limit = 10) => {
   const response = await axios.get(`${API_URL}/task`, {
+    params: { page, limit },
     headers: { Authorization: `Bearer ${getCookie('token')}` },
   });
   return response.data;
@@ -38,6 +39,7 @@ export const updateTask = async (id, taskData) => {
   const response = await axios.put(`${API_URL}/task/${id}`, taskData, {
     headers: { Authorization: `Bearer ${getCookie('token')}` },
   } );
+  alert("task updated succesfuky")
   console.log("response:-",response)
   return response.data;
 };

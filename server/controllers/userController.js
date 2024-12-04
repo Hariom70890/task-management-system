@@ -78,10 +78,34 @@ const loginUser = async (req, res) => {
 // Get Users
 const getUser = async (req, res) => {
     try {
-        const users = await User.find().select("-password");
-        res.status(200).json({ message: "Users retrieved successfully", users });
+        const users = await User.find( {role: "user"} ).select( "-password" );
+        res.status( 200 ).json( {message: "Users retrieved successfully", users} );
     } catch (error) {
         res.status(500).json({ message: "Error retrieving users", error: error.message });
+    }
+};
+
+
+// createuser 
+const createUser = async (req, res) => {
+    try {
+        const { error } = validateUser(req.body);
+        if (error) return res.status(400).json({ message: error.details[0].message });
+
+        const { name, email, password,role } = req.body;
+
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: "Email already in use" });
+        }
+
+        const user = await User.create(req.body); 
+        res.status(201).json({
+            message: "User created successfully", 
+            user: { id: user._id, name: user.name, email: user.email, role: user.role },
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Error creating user", error: error.message });
     }
 };
 
@@ -124,6 +148,7 @@ module.exports = {
     registerUser,
     loginUser,
     getUser,
+    createUser,
     deleteUser,
     logoutUser
 };

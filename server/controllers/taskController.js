@@ -55,11 +55,7 @@ const getTask = async (req, res) => {
         const limit = parseInt(req.query.limit) || 10;
         const skip = (page - 1) * limit;
 
-        const tasks = await Task.find()
-            .skip(skip)
-            .limit(limit)
-            .populate("creator", "name email")
-            .populate("assignedTo", "name email");
+        const tasks = await Task.find().sort({ createdAt: -1 }).skip(skip).limit(limit).populate("creator", "name email").populate("assignedTo", "name email");
 
         const total = await Task.countDocuments();
 

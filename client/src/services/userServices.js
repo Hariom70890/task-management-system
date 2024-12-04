@@ -8,12 +8,21 @@ export const registerUser  = async (userData) => {
   return response.data;
 };
 
+
+export const createUser  = async (userData) => {
+  const response = await axios.post(`${API_URL}`, userData);
+  return response;
+};
+
 export const loginUser  = async (credentials) => {
   const response = await axios.post(`${API_URL}/login`, credentials);
   return response;
 };
 
 export const logoutUser  = async () => {
+  // clear the local storage as well
+  localStorage.removeItem( 'token' );
+  localStorage.removeItem( 'user' ); 
   const response = await axios.post(`${API_URL}/logout`, null, {
     headers: { Authorization: `Bearer ${getCookie('token')}` },
   } );
@@ -24,7 +33,7 @@ export const logoutUser  = async () => {
 export const getAllUsers = async () => {
   const response = await axios.get(API_URL, {
     headers: { Authorization: `Bearer ${getCookie('token')}` },
-  });
+  } ); 
   
   return response.data;
 };
@@ -32,7 +41,8 @@ export const getAllUsers = async () => {
 export const deleteUser  = async (id) => {
   const response = await axios.delete(`${API_URL}/${id}`, {
     headers: { Authorization: `Bearer ${getCookie('token')}` },
-  });
+  } );
+  alert("your deleted successfykky")
   return response.data;
 };
 

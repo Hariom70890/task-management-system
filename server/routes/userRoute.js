@@ -5,7 +5,8 @@ const {
     loginUser,
     getUser,
     deleteUser,
-    logoutUser, 
+    logoutUser,
+    createUser, 
 } = require('../controllers/userController');
 
 const userRouter = express.Router();
@@ -20,6 +21,7 @@ userRouter.post('/login', loginUser);
 userRouter.post('/logout', authenticate, logoutUser);
 
 // Get All Users (Admin only)
+userRouter.post('/', authenticate,  createUser);
 userRouter.get('/',authenticate, getUser);
 
 // Delete a User (Admin only)
