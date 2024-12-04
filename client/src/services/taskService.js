@@ -39,7 +39,7 @@ export const updateTask = async (id, taskData) => {
   const response = await axios.put(`${API_URL}/task/${id}`, taskData, {
     headers: { Authorization: `Bearer ${getCookie('token')}` },
   } );
-  alert("task updated succesfuky")
+  // alert("task updated succesfuky")
   console.log("response:-",response)
   return response.data;
 };

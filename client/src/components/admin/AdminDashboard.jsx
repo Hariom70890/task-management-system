@@ -250,7 +250,7 @@ const UsersTable = ({ users, onDelete }) => (
     try {
       const response = await createUser( userData )
       console.log("response:-",response)
-      if ( response.status!==201) throw new Error( response.data.message ); 
+      // if ( response.status!==201) throw new Error( response.data.message ); 
       Swal.fire( {
         title: 'User created successfully',
         icon: 'success', 

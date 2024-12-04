@@ -10,7 +10,8 @@ export const registerUser  = async (userData) => {
 
 
 export const createUser  = async (userData) => {
-  const response = await axios.post(`${API_URL}`, userData);
+  const response = await axios.post( `${API_URL}`, userData );
+  console.log( "reponse in createing user:-", response );
   return response;
 };
 
@@ -42,7 +43,6 @@ export const deleteUser  = async (id) => {
   const response = await axios.delete(`${API_URL}/${id}`, {
     headers: { Authorization: `Bearer ${getCookie('token')}` },
   } );
-  alert("your deleted successfykky")
   return response.data;
 };
 
